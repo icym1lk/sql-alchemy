@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+ 
+<h1>Edit {{ post.title }} details</h1>
+<form>
+    <div class="form-group">
+        <label for="title" class="col-sm-2 col-form-label">Title</label>
+        <div class="col-sm-10">
+        <input type="text" class="form-control" name="title" id="title" placeholder="Enter a first name">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="content" class="col-sm-2 col-form-label">Content</label>
+        <div class="col-sm-10">
+            <textarea class="form-control" id="content" name="content" rows="3"></textarea>
+        </div>
+    </div>
+    <p>Tags currently on post:
+        {% for tag in post.tags %}<span><p class="badge badge-pill badge-warning">{{tag.name}}</p></span> {% endfor %}
+    </p>
+    <div class="form-group">
+        <label for="tag_group">Select or remove tags from {{post.title}}</label>
+        <select name="tag_group" id="tag_group" class="selectpicker" multiple data-actions-box="true">
+            {% for tag in tags %}
+                <option value="{{ tag.id }}" id="tag_{{ tag.id }}">{{tag.name}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-10">
+        <button type="submit" class="btn btn-success" formaction="/posts/{{post.id}}/edit" formmethod="POST">Save</button>
+        <button type="submit" class="btn btn-outline-secondary" formaction="/posts/{{post.id}}" formmethod="GET">Cancel</button>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

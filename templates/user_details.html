@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}User Details{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col col-md-auto">
+        <p><img class="profile-pic" src="{{ user.img_url }}" alt=""></p>
+    </div>
+    <div class="col-md-auto">
+        <h1>{{ user.full_name }}</h1>
+        <form>
+            <button type="submit" class="btn btn-outline-primary" formaction="/users/{{user.id}}/edit" formmethod="GET">Edit</button>
+            <button type="submit" class="btn btn-danger" formaction="/users/{{user.id}}/delete" formmethod="POST">Delete</button>
+            <button type="submit" class="btn btn-info" formaction="/" formmethod="GET">Home Page</button>
+        </form>
+        <h2>Posts</h2>
+        <ul>
+            {% for post in posts %}
+                <li>
+                    <a href="/posts/{{ post.id }}">{{ post.title }}</a> 
+                    <small>{{ post.friendly_date }}</small>
+                </li>
+            {% endfor %}
+        </ul>
+        <form action="/users/{{user.id}}/posts/new">
+            <button type="submit" class="btn btn-primary">Create New Post</button>
+            <button type="submit" class="btn btn-primary" formaction="/tags/new" formmethod="GET">Create Tag</button>
+        </form>
+    </div>
+</div>
+    
+{% endblock %}

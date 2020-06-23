@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Post Details{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-auto">
+        <h1>{{ post.title }}</h1>
+        <p>{{ post.content }}</p>
+        <p><em>By {{ post.user.full_name }} on {{ post.friendly_date }}</em></p>
+        <p>Tags:
+            {% for tag in post.tags %}<a href="/tags/{{tag.id}}" class="badge badge-pill badge-warning">{{tag.name}}</a> {% endfor %}
+        </p>
+        <form>
+            <button type="submit" class="btn btn-outline-secondary" formaction="/users/{{ post.user.id }}" formmethod="GET">Cancel</button>
+            <button type="submit" class="btn btn-outline-primary" formaction="/posts/{{post.id}}/edit" formmethod="GET">Edit</button>
+            <button type="submit" class="btn btn-danger" formaction="/posts/{{post.id}}/delete" formmethod="POST">Delete</button>
+            <button type="submit" class="btn btn-info" formaction="/" formmethod="GET">Home Page</button>
+        </form>
+    </div>
+</div>
+    
+{% endblock %}

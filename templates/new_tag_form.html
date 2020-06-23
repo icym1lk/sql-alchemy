@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Create a Tag{% endblock %}
+
+{% block content %}
+
+<h1>Create a new tag</h1>
+<form>
+    <div class="form-group">
+        <label for="name" class="col-sm-2 col-form-label">Name</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="name" id="name" placeholder="Pizza Party!">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="post_group">Select any posts you like to tag</label>
+        <select name="post_group" id="post_group" class="selectpicker" multiple data-actions-box="true">
+            {% for post in posts %}
+                <option value="{{ post.id }}" id="post_{{ post.id }}">{{post.title}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary" formaction="/tags/new" formmethod="POST">Create</button>
+            <button type="submit" class="btn btn-outline-secondary" formaction="/tags" formmethod="GET">Cancel</button>
+        </div>
+    </div>
+</form>
+
+    
+{% endblock %}
